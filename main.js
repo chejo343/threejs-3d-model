@@ -43,19 +43,20 @@ loader.load('models/Flamingo.glb', (gltf) => {
   model.scale.set(0.3, 0.3, 0.3)
   model.position.set(0, 0, 0)
   scene.add(model)
-  // const mixer = new THREE.AnimationMixer(model);
-  // const clips = gltf.animations;
-  // clips.forEach((clip) => {
-  //   mixer.clipAction(clip).play();
-  // });
-  // const clock = new THREE.Clock();
+  // Obtener clips de animacion
+  const mixer = new THREE.AnimationMixer(model);
+  const clips = gltf.animations;
+  clips.forEach((clip) => {
+    mixer.clipAction(clip).play();
+  });
+  const clock = new THREE.Clock();
   const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
     model.rotation.y += 0.01
-    // if (mixer) {
-    //   mixer.update(clock.getDelta());
-    // }
+    if (mixer) {
+      mixer.update(clock.getDelta());
+    }
   }
   animate();
 }, undefined, (error) => {
